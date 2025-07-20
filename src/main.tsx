@@ -5,12 +5,14 @@ import App from '@/App.tsx';
 import GlobalStyle from '@/styles/global';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '@/theme';
+import { ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <App />
+      <ToastContainer />
     </ThemeProvider>
   </StrictMode>
 );

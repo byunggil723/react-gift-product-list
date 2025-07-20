@@ -6,6 +6,7 @@ import useValidateId from '@/hooks/useValidateId';
 import useValidatePassword from '@/hooks/useValidatePassword';
 import useUserInfo from '@/hooks/useUserInfo';
 import type { InputStyle } from '@/types/inputStyle';
+import { Bounce, toast } from 'react-toastify';
 
 const Container = styled.div`
   display: flex;
@@ -193,7 +194,27 @@ const Login = () => {
         </div>
         <Button
           onClick={() => {
-            setUser({ id: email, password: password });
+            if (!email.endsWith('@kakao.com')) {
+              toast.warn('@kakao.com 이메일 주소만 가능합니다.', {
+                position: 'bottom-center',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+                transition: Bounce,
+                style: {
+                  width: '25rem',
+                  color: 'black',
+                  backgroundColor: 'white',
+                },
+              });
+
+              return;
+            }
+            setUser({ email: email, password: password });
             navigate(nextPath, { replace: true });
           }}
           disabled={isFirstTry ? true : !isAllValid}
