@@ -114,7 +114,8 @@ export const GiftList = () => {
               return (
                 <GiftItemCard
                   key={item.id}
-                  id={i + 1}
+                  rank={i + 1}
+                  id={item.id}
                   name={item.name}
                   image={item.imageURL}
                   brandName={item.brandInfo.name}

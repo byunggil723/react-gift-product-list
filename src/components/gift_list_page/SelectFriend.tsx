@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import PlusIcon from '@/assets/add.svg?react';
+import useUserInfo from '@/hooks/useUserInfo';
 
 const Container = styled.div`
   display: flex;
@@ -42,13 +43,16 @@ const Text = styled.div`
 `;
 
 export const SelectFriend = () => {
+  const { user } = useUserInfo();
+  const emailId = user.email.split('@')[0];
+
   return (
     <Container>
       <AddFriendButton>
         <PlusBtn>
           <PlusIcon fill="black" />
         </PlusBtn>
-        <Text>선물할 친구를 선택해 주세요.</Text>
+        <Text>{emailId && `${emailId}님! `}선물할 친구를 선택해 주세요.</Text>
       </AddFriendButton>
     </Container>
   );

@@ -1,3 +1,4 @@
+import useUserInfo from '@/hooks/useUserInfo';
 import type { InputStyle } from '@/types/inputStyle';
 import type { FormValues } from '@/types/orderFormType';
 import styled from '@emotion/styled';
@@ -64,6 +65,8 @@ const ErrorText = styled.div`
 `;
 
 export const SenderInput = () => {
+  const { user } = useUserInfo();
+  const emailId = user.email.split('@')[0];
   const [senderNameInputFieldStyle, setsenderNameInputFieldStyle] = useState<InputStyle>('idle');
   const [isClicked, setIsClicked] = useState(false);
   const {
@@ -100,6 +103,7 @@ export const SenderInput = () => {
           required: '이름을 입력해주세요.',
           onChange: async () => await trigger('senderName'),
         })}
+        defaultValue={emailId}
         senderNameInputFieldStyle={senderNameInputFieldStyle}
         placeholder={'이름을 입력하세요.'}
         onFocus={() => setIsClicked(true)}

@@ -15,6 +15,7 @@ export interface GiftItemDataType {
 }
 
 export interface GiftItemCardType {
+  rank: number;
   id: number;
   name: string;
   image: string;
