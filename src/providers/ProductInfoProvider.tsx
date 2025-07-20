@@ -2,6 +2,7 @@ import { ProductInfoContext } from '@/contexts/ProductInfoContext';
 import React, { useState } from 'react';
 
 export const ProductInfoProvider = ({ children }: { children: React.ReactNode }) => {
+  const [messageCardId, setMessageCardId] = useState('');
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
@@ -10,6 +11,8 @@ export const ProductInfoProvider = ({ children }: { children: React.ReactNode })
   return (
     <ProductInfoContext.Provider
       value={{
+        messageCardId,
+        setMessageCardId,
         id,
         setId,
         name,

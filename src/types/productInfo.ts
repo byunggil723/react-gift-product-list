@@ -1,4 +1,6 @@
 export interface ProductInfo {
+  messageCardId: string;
+  setMessageCardId: React.Dispatch<React.SetStateAction<string>>;
   id: number;
   setId: React.Dispatch<React.SetStateAction<number>>;
   name: string;

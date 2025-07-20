@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { InputStyle } from '@/types/inputStyle';
 import { useFormContext } from 'react-hook-form';
 import type { FormValues } from '@/types/orderFormType';
+import useProductInfo from '@/hooks/useProductInfo';
 
 const Container = styled.div`
   display: flex;
@@ -89,6 +90,7 @@ const ErrorText = styled.div`
 
 export const GiftMessageCardTemplates = () => {
   const giftMessageCards = giftMessageCardTemplatesData;
+  const { setMessageCardId } = useProductInfo();
   const [selectedCardId, setSelectedCardId] = useState(giftMessageCards[0].id);
   const index = giftMessageCards.findIndex((item) => item.id === selectedCardId);
   const [messageInputFieldStyle, setMessageInputFieldStyle] = useState<InputStyle>('idle');
@@ -118,6 +120,10 @@ export const GiftMessageCardTemplates = () => {
   useEffect(() => {
     handleInputFieldStyle();
   }, [handleInputFieldStyle]);
+
+  useEffect(() => {
+    setMessageCardId(selectedCardId.toString());
+  }, [selectedCardId, setMessageCardId]);
 
   return (
     <Container>
