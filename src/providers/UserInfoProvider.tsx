@@ -19,6 +19,8 @@ export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (!user.email) return;
 
+    if (JSON.parse(storage!)?.authToken) return;
+
     const login = async () => {
       try {
         const response = await apiClient.post('/api/login', user);
@@ -49,7 +51,7 @@ export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
       }
     };
     login();
-  }, [user]);
+  }, [storage, user]);
 
   return <UserInfoContext.Provider value={{ user, setUser }}>{children}</UserInfoContext.Provider>;
 };

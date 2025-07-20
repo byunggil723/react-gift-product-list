@@ -115,7 +115,7 @@ const svgSize = 60;
 const MyPage = () => {
   const navigate = useNavigate();
   const { user, setUser } = useUserInfo();
-  const emailId = user.id.split('@')[0];
+  const emailId = user.email.split('@')[0];
 
   return (
     <Container>
@@ -137,11 +137,11 @@ const MyPage = () => {
           <Border />
           <UserInfo>회원 정보</UserInfo>
           <UserInfo>
-            이메일 {'>'} {user.id}
+            이메일 {'>'} {user.email}
           </UserInfo>
           <LogoutButton
             onClick={() => {
-              setUser({ id: '', password: '' });
+              setUser({ email: '', password: '' });
               navigate('/login');
             }}
           >

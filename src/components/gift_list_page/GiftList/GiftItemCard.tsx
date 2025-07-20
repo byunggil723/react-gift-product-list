@@ -60,7 +60,7 @@ export const GiftItemCard = ({ id, name, image, brandName, price }: GiftItemCard
   return (
     <Card
       onClick={() => {
-        if (user.id) {
+        if (user.email) {
           navigate(`/order/${id}`);
         } else {
           navigate('/login', { state: { from: `/order/${id}` } });

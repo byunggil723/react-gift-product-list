@@ -60,7 +60,7 @@ export const TopNavBar = ({ title, mainPath }: TopNavBarType) => {
       </Btn>
       <Btn
         onClick={() => {
-          if (!user.id) {
+          if (!user.email) {
             navigate('/login');
           } else {
             navigate('/my');
