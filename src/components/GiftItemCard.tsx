@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import useUserInfo from '@/hooks/useUserInfo';
-import type { GiftItemCardType } from '@/types/giftItems';
+import type { GiftItemCardType } from '@/types/giftItem';
 
 const Card = styled.button`
   all: unset;
@@ -15,7 +15,7 @@ const Card = styled.button`
   height: 100%;
 `;
 
-const Rank = styled.div<{ rank: number }>`
+const Rank = styled.div<{ rank?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,8 +25,11 @@ const Rank = styled.div<{ rank: number }>`
   top: 0.3rem;
   left: 0.3rem;
   border-radius: 0.2rem;
-  background-color: ${({ theme, rank }) =>
-    rank <= 3 ? theme.colors.red600 : theme.colors.gray600};
+  background-color: ${({ theme, rank }) => {
+    if (!rank) return;
+
+    return rank <= 3 ? theme.colors.red600 : theme.colors.gray600;
+  }};
   color: white;
   font-size: 0.75rem;
   font-weight: 500;
@@ -67,7 +70,7 @@ export const GiftItemCard = ({ rank, id, name, image, brandName, price }: GiftIt
         }
       }}
     >
-      <Rank rank={rank}>{rank}</Rank>
+      {rank && <Rank rank={rank}>{rank}</Rank>}
       <Image src={image} />
       <Name1>{brandName}</Name1>
       <Name2>{name}</Name2>

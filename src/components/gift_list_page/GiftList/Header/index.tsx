@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { useCallback, useEffect } from 'react';
 import { TargetButton } from './TargetButton';
 import { TopicButton } from './TopicButton';
-import type { GiftItemDataType } from '@/types/giftItems';
+import type { GiftItemDataType } from '@/types/giftItem';
 
 interface Header {
   getGiftItemList: React.Dispatch<React.SetStateAction<GiftItemDataType[] | null>>;

@@ -1,5 +1,6 @@
 import type { CategoryCardType } from '@/types/category';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 const Card = styled.button`
   all: unset;
@@ -23,9 +24,15 @@ const Name = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.spacing5};
 `;
 
-export const CategoryCard = ({ name, image }: CategoryCardType) => {
+export const CategoryCard = ({ id, name, image }: CategoryCardType) => {
+  const navigate = useNavigate();
+
   return (
-    <Card>
+    <Card
+      onClick={() => {
+        navigate(`/themes/${id}`);
+      }}
+    >
       <Image src={image} />
       <Name>{name}</Name>
     </Card>

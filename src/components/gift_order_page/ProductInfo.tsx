@@ -1,6 +1,6 @@
 import apiClient from '@/api/apiClient';
 import useProductInfo from '@/hooks/useProductInfo';
-import type { GiftItemDataType } from '@/types/giftItems';
+import type { GiftItemDataType } from '@/types/giftItem';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

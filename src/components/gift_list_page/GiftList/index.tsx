@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import type { GiftItemDataType } from '@/types/giftItems';
-import { GiftItemCard } from './GiftItemCard';
+import type { GiftItemDataType } from '@/types/giftItem';
+import { GiftItemCard } from '../../GiftItemCard';
 import { Header } from './Header';
 import { MoreButton } from './MoreButton';
 import apiClient from '@/api/apiClient';
@@ -113,7 +113,7 @@ export const GiftList = () => {
             {giftItems.map((item, i) => {
               return (
                 <GiftItemCard
-                  key={item.id}
+                  key={`GIFT_LIST_${item.id}`}
                   rank={i + 1}
                   id={item.id}
                   name={item.name}

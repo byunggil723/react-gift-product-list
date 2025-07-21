@@ -101,7 +101,14 @@ export const Category = () => {
               <ErrorText>표시할 데이터가 없습니다.</ErrorText>
             ) : (
               categories?.map((item) => {
-                return <CategoryCard key={item.themeId} name={item.name} image={item.image} />;
+                return (
+                  <CategoryCard
+                    key={item.themeId}
+                    id={item.themeId}
+                    name={item.name}
+                    image={item.image}
+                  />
+                );
               })
             )}
           </CategoryList>

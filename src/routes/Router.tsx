@@ -5,6 +5,7 @@ import NotFound from '@/pages/NotFound';
 import { UserInfoProvider } from '@/providers/UserInfoProvider';
 import MyPage from '@/pages/MyPage';
 import GiftOrder from '@/pages/GiftOrder';
+import ThemedGiftList from '@/pages/ThemedGiftList';
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/my" element={<MyPage />} />
           <Route path="/order/:id" element={<GiftOrder />} />
+          <Route path="/themes/:id" element={<ThemedGiftList />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
