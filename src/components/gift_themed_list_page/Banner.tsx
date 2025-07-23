@@ -52,7 +52,6 @@ export const Banner = () => {
         setTitle(response.data.data.title);
         setDescription(response.data.data.description);
         setBackgroundColor(response.data.data.backgroundColor);
-        console.log(response.data.data);
       } catch (error) {
         console.log('⚠️ 요청 처리 중 오류가 발생했습니다.', error);
         if (axios.isAxiosError(error) && error.response?.status === 404) {
