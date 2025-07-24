@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { GiftItemCard } from '../GiftItemCard';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { keyframes } from '@emotion/react';
 import type { GiftItemDataType } from '@/types/giftItem';
 import apiClient from '@/api/apiClient';
@@ -50,10 +50,17 @@ const ErrorText = styled.div`
   font-weight: 500;
 `;
 
+const IntersectionTrigger = styled.div`
+  width: 100%;
+  height: 1rem;
+`;
+
 export const GiftList = () => {
+  const intersectionTriggerRef = useRef<HTMLDivElement | null>(null);
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState(0);
   const [giftItemList, setGiftItemList] = useState<GiftItemDataType[] | null>(null);
 
@@ -64,7 +71,10 @@ export const GiftList = () => {
       const response = await apiClient.get(`/api/themes/${id}/products?cursor=${cursor}&limit=10`);
       console.log(response.data.data);
 
-      if (!response.data.data.hasMoreList) return;
+      if (!response.data.data.hasMoreList) {
+        setHasMore(false);
+        return;
+      }
 
       const prevList = giftItemList || [];
       setGiftItemList([...prevList, ...response.data.data.list]);
@@ -81,15 +91,26 @@ export const GiftList = () => {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-        getData();
+    const targetElement = intersectionTriggerRef.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasMore) {
+          getData();
+        }
+      },
+      {
+        root: null,
+        rootMargin: '300px',
+        threshold: 0.1,
       }
-    };
-    window.addEventListener('scroll', onScroll);
+    );
 
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [getData]);
+    if (targetElement) observer.observe(targetElement);
+
+    return () => {
+      if (targetElement) observer.unobserve(targetElement);
+    };
+  }, [getData, hasMore]);
 
   useEffect(() => {
     if (giftItemList === null) return;
@@ -120,6 +141,7 @@ export const GiftList = () => {
         <ErrorText>⚠️ 요청 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</ErrorText>
       )}
       {!loading && giftItemList?.length === 0 && <ErrorText>상품이 없습니다.</ErrorText>}
+      {hasMore && <IntersectionTrigger ref={intersectionTriggerRef} />}
     </Container>
   );
 };
